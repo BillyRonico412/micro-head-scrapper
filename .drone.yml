@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: deploy-head-scrapper
+
+steps:
+- name: build docker image
+  image: plugins/docker
+  settings: 
+    registry: https://hub.docker.com/
+    username: ronicobilly
+    password:
+      from_secret: password_dockerhub
+    repo: https://hub.docker.com/repository/docker/ronicobilly/head-scrapper
+    network_mode: bridge
+    tags: latest
