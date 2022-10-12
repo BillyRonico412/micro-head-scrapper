@@ -12,12 +12,11 @@ const app = express();
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-app.get("/", async (req, res) => {
-    const body = req.body as { url: string };
-    if (!(await yupUrl.isValid(body))) {
+app.get("/?url=:url", async (req, res) => {
+    const url = req.params.url as string;
+    if (!(await yupUrl.isValid(url))) {
         return res.status(400).end();
     }
-    const url = req.body.url as string;
     try {
         const metaData = await extractMetadata(url);
         return res.status(200).json(metaData);
