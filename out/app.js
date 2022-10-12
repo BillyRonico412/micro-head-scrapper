@@ -22,12 +22,11 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, morgan_1.default)("dev"));
 app.use(body_parser_1.default.json());
-app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    if (!(yield utils_1.yupUrl.isValid(body))) {
+app.get("/?url=:url", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const url = req.params.url;
+    if (!(yield utils_1.yupUrl.isValid(url))) {
         return res.status(400).end();
     }
-    const url = req.body.url;
     try {
         const metaData = yield (0, link_meta_extractor_1.extractMetadata)(url);
         return res.status(200).json(metaData);
