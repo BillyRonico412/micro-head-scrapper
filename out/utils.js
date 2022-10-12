@@ -25,4 +25,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.yupUrl = void 0;
 const yup = __importStar(require("yup"));
-exports.yupUrl = yup.string().required().url();
+exports.yupUrl = yup.object().required().shape({
+    url: yup.string().required().url(),
+});

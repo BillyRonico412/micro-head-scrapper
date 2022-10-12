@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { extractMetadata } from "link-meta-extractor";
@@ -12,12 +13,13 @@ const app = express();
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-app.get("/?url=:url", async (req, res) => {
-    const url = req.params.url as string;
-    if (!(await yupUrl.isValid(url))) {
+app.get("/", async (req, res) => {
+    const query = req.query;
+    if (!(await yupUrl.isValid(query))) {
         return res.status(400).end();
     }
     try {
+        const url = query.url as string;
         const metaData = await extractMetadata(url);
         return res.status(200).json(metaData);
     } catch (err) {
