@@ -9,5 +9,5 @@ steps:
     username: ronicobilly
     password:
       from_secret: password_dockerhub
-    repo: hub.docker.com/repository/docker/ronicobilly/head-scrapper
+    repo: ronicobilly/head-scrapper
     tags: latest
